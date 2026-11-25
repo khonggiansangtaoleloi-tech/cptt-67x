@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olympia Admin - Vòng 1 Chung</title>
+    <title>Olympia Admin - Vòng Chơi Khán Giả</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
 /* =====================================================================
    V1C Core - Chỉ đọc api_url từ ../../api/vong1_chung.json
@@ -101,21 +102,6 @@ window.V1C = (function () {
         .btn-reset { background: #dc3545; color: white; padding: 10px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
         .btn-reset:hover { background: #c82333; }
 
-        .btn-link {
-            background: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            font-size: 1.1rem;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-link:hover { background: #218838; }
-
         /* KHUNG NGÂN HÀNG CÂU HỎI */
         .questions-panel { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         .q-header { border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
@@ -176,11 +162,9 @@ window.V1C = (function () {
 <body>
     <div class="dashboard">
         <div class="header-panel">
-            <a href="../vong2/" class="btn-link">MẶC ĐỊNH VÒNG 1</a>
-            <h1>BẢNG ĐIỀU KHIỂN MC - VÒNG 1 CHUNG</h1>
+            <h1>BẢNG ĐIỀU KHIỂN MC - VÒNG CHƠI KHÁN GIẢ</h1>
             <div>
                 <button class="btn-reset" onclick="resetRound()">Làm mới Vòng Chơi</button>
-                <a href="../vong2/" class="btn-link" style="margin-left: 10px;">CHUYỂN VÒNG 2 ▶</a>
             </div>
         </div>
 
@@ -211,6 +195,25 @@ window.V1C = (function () {
         let stateSubPath = "match_state";
         let stateBusy = false;
         let adminTimerEnd = null;
+
+        // Popup thông báo hiện đại (SweetAlert2)
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2500,
+            timerProgressBar: true
+        });
+
+        function showErrorPopup(title, message) {
+            Swal.fire({
+                icon: 'error',
+                title: title,
+                text: message || 'Đã xảy ra lỗi không xác định.',
+                confirmButtonText: 'Đóng',
+                confirmButtonColor: '#dc3545'
+            });
+        }
 
         function setHTML(el, html) {
             if (!el || el._lastHtml === html) return;
@@ -290,7 +293,7 @@ window.V1C = (function () {
 
             if (!entries.length) {
                 setHTML(navBox, '');
-                setHTML(qList, '<div style="text-align:center; padding: 20px; color: #666; font-style: italic;">Chưa có câu hỏi nào trên Firebase (vong1_chung).</div>');
+                setHTML(qList, '<div style="text-align:center; padding: 20px; color: #666; font-style: italic;">Chưa có câu hỏi nào trên Firebase.</div>');
                 return;
             }
 
@@ -383,7 +386,7 @@ window.V1C = (function () {
                 adminTimerEnd = Date.now() + 5000;
                 updateAdminTimerBtn();
             } catch (e) {
-                alert("Lỗi bắt đầu đếm 5s: " + e.message);
+                showErrorPopup("Lỗi bắt đầu đếm 5s", e.message);
             } finally {
                 stateBusy = false;
             }
@@ -407,7 +410,7 @@ window.V1C = (function () {
                 });
                 await pollOnce();
             } catch (e) {
-                alert("Lỗi phát câu hỏi: " + e.message);
+                showErrorPopup("Lỗi phát câu hỏi", e.message);
             } finally {
                 stateBusy = false;
             }
@@ -426,8 +429,9 @@ window.V1C = (function () {
                 currentSelectedQuestion = null;
                 serverActiveQuestion = '';
                 await pollOnce();
+                Toast.fire({ icon: 'info', title: 'Đã đóng câu hỏi & làm sạch màn hình' });
             } catch (e) {
-                alert("Lỗi đóng câu hỏi: " + e.message);
+                showErrorPopup("Lỗi đóng câu hỏi", e.message);
             } finally {
                 stateBusy = false;
             }
@@ -449,7 +453,7 @@ window.V1C = (function () {
                 }
                 await pollOnce();
             } catch (e) {
-                alert("Lỗi cập nhật trạng thái đáp án: " + e.message);
+                showErrorPopup("Lỗi cập nhật trạng thái đáp án", e.message);
             } finally {
                 stateBusy = false;
             }
@@ -457,7 +461,20 @@ window.V1C = (function () {
 
         async function resetRound() {
             if (stateBusy) return;
-            if (!confirm("Làm mới Vòng 1.1 sẽ XÓA TRẠNG THÁI các câu đã phát (cauhoiopen) và đóng toàn bộ đáp án. Bạn có chắc chắn?")) return;
+            const confirmResult = await Swal.fire({
+                icon: 'warning',
+                title: 'Làm mới Vòng Chơi?',
+                text: 'Thao tác này sẽ xóa trạng thái các câu đã phát và đóng toàn bộ đáp án. Bạn có chắc chắn muốn tiếp tục?',
+                showCancelButton: true,
+                confirmButtonText: 'Đồng ý làm mới',
+                cancelButtonText: 'Hủy',
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                reverseButtons: true
+            });
+
+            if (!confirmResult.isConfirmed) return;
+
             stateBusy = true;
             adminTimerEnd = null;
             try {
@@ -477,8 +494,9 @@ window.V1C = (function () {
                 await V1C.patch("", updates);
                 currentSelectedQuestion = null;
                 await pollOnce();
+                Toast.fire({ icon: 'success', title: 'Đã làm mới vòng chơi thành công!' });
             } catch (e) {
-                alert("Lỗi làm mới vòng chơi: " + e.message);
+                showErrorPopup("Lỗi làm mới vòng chơi", e.message);
             } finally {
                 stateBusy = false;
             }
