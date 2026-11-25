@@ -1,0 +1,82 @@
+{
+    "match_state": {
+        "cauhoihientai": "",
+        "cauhoiopen": "",
+        "thoiGianKetThuc": 0,
+        "timerTrigger": 0
+    },
+    "question_bank": [
+        null,
+        {
+            "cauhoi": "2 cha – 2 con đi câu cá. Họ chỉ bắt được 3 con cá nhưng mỗi người đều có một con. Tại sao?",
+            "danan": "Ông – bố – cháu: 3 người. ",
+            "statusdapan": 0,
+            "sttcau": 1,
+            "url": ""
+        },
+        {
+            "cauhoi": "When do we look at number “2” but say “10”?",
+            "danan": "When we look at our watch.",
+            "statusdapan": 0,
+            "sttcau": 2,
+            "url": ""
+        },
+        {
+            "cauhoi": "ĐUỔI HÌNH BẮT CHỮ:\nĐây là ai?",
+            "danan": "Âu Cơ",
+            "statusdapan": 0,
+            "sttcau": 3,
+            "url": "https://raw.githubusercontent.com/khonggiansangtaoleloi-tech/up-img/main/up-img/67-cau3-1795581708478-k4ggc.jpg"
+        },
+        {
+            "cauhoi": "Con gì có cánh mà không có lông?",
+            "danan": "Con diều",
+            "statusdapan": 0,
+            "sttcau": 4,
+            "url": ""
+        },
+        {
+            "cauhoi": "Môn thể thao nào càng lùi càng thắng?",
+            "danan": "Kéo co",
+            "statusdapan": 0,
+            "sttcau": 5,
+            "url": ""
+        },
+        {
+            "cauhoi": "Cái gì càng rửa càng bẩn?",
+            "danan": "Nước rửa",
+            "statusdapan": 0,
+            "sttcau": 6,
+            "url": ""
+        },
+        {
+            "cauhoi": "Con gì đi bắt vịt gà, mất đuôi xuống nước hóa ra khác loài?",
+            "danan": "Con cáo -> Con cá.",
+            "statusdapan": 0,
+            "sttcau": 7,
+            "url": ""
+        },
+        {
+            "cauhoi": "What has a face and two hands but no arms or legs?",
+            "danan": "A clock",
+            "statusdapan": 0,
+            "sttcau": 8,
+            "url": ""
+        },
+        {
+            "cauhoi": "What word becomes shorter when you add two letters to it?",
+            "danan": "SHORT.\n(Add “ER” to make “SHORTER”)",
+            "statusdapan": 0,
+            "sttcau": 9,
+            "url": ""
+        }
+        ,
+        {
+            "cauhoi": "Rearrange the letters in “LISTEN” to make another English word that means “quiet”. What is it?",
+            "danan": "SILENT.",
+            "statusdapan": 0,
+            "sttcau": 10,
+            "url": ""
+        }
+    ]
+}
