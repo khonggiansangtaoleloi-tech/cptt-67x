@@ -539,6 +539,28 @@ window.V1C = (function () {
             return "../../img/vong1_chung/" + imgName;
         }
 
+        // ================= XỬ LÝ LINK ẢNH ĐÁP ÁN =================
+        function resolveAnswerImageUrl(qObj) {
+            if (!qObj) return null;
+            const raw = qObj.urldapan || qObj.url_dapan || qObj.anhDapan || qObj.anh_dapan || qObj.image_dapan || "";
+            if (typeof raw !== "string") return null;
+
+            const imgName = raw.trim();
+            if (imgName === "" || imgName.toUpperCase() === "NULL" || imgName === "undefined") return null;
+
+            const driveMatch = imgName.match(/[-\w]{25,}/);
+            if (imgName.includes("drive.google.com") && driveMatch) {
+                return "https://drive.google.com/thumbnail?id=" + driveMatch[0] + "&sz=w1200";
+            }
+            if (!imgName.includes(".") && !imgName.includes("/") && imgName.length >= 25) {
+                return "https://drive.google.com/thumbnail?id=" + imgName + "&sz=w1200";
+            }
+            if (imgName.startsWith("http://") || imgName.startsWith("https://")) {
+                return imgName;
+            }
+            return "../../img/vong1_chung/" + imgName;
+        }
+
         // ================= TỰ ĐỘNG ĐỌC CẤU TRÚC FIREBASE =================
         function parseRoundData(data) {
             const raw = data || {};
@@ -619,7 +641,9 @@ window.V1C = (function () {
                         const qText = q.cauhoi || q.noiDung || "";
                         const ansText = q.danan || q.dapan || q.dapAn || "Đang tải dữ liệu đáp án...";
                         const imgLink = resolveImageUrl(q) || "";
-                        const renderKey = `${stt}|${statusAns}|${qText}|${ansText}|${imgLink}`;
+                        const ansImgLink = resolveAnswerImageUrl(q) || "";
+                        const displayImgLink = (statusAns === 1 && ansImgLink) ? ansImgLink : imgLink;
+                        const renderKey = `${stt}|${statusAns}|${qText}|${ansText}|${imgLink}|${ansImgLink}`;
 
                         if (statusAns === 1) {
                             hideTimerBox();
@@ -630,12 +654,12 @@ window.V1C = (function () {
                             lastRenderKey = renderKey;
                             let html = `<div class="subject-tag">CÂU HỎI SỐ ${esc(stt)}</div>`;
 
-                            if (imgLink) {
+                            if (displayImgLink) {
                                 html += `
                                     <div class="q-split-container">
                                         <div class="q-left-panel">${esc(qText)}</div>
                                         <div class="q-right-panel">
-                                            <img class="q-image" src="${esc(imgLink)}" onerror="this.outerHTML='<div class=\\'img-error-box\\'>⚠️ Không tải được ảnh!<br><small style=\\'color:#fff;\\'>Đường dẫn: ${esc(imgLink)}</small></div>'">
+                                            <img class="q-image" src="${esc(displayImgLink)}" onerror="this.outerHTML='<div class=\\'img-error-box\\'>⚠️ Không tải được ảnh!<br><small style=\\'color:#fff;\\'>Đường dẫn: ${esc(displayImgLink)}</small></div>'">
                                         </div>
                                     </div>
                                 `;
