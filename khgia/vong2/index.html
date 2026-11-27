@@ -503,7 +503,7 @@
         }
 
  /* =========================================
-   7. BẢNG TỪ KHÓA HÀNG NGANG - KHÁN GIẢ (TO RÕ, TRÒN ĐỀU)
+7. BẢNG TỪ KHÓA HÀNG NGANG - KHÁN GIẢ (TO RÕ, TRÒN ĐỀU)
    ========================================= */
 .words-board {
     display: flex;
@@ -1033,6 +1033,20 @@
             return (s === "5" || s === "cnv" || s === "trungtam");
         }
 
+        function isQuestionAnswerRevealed(qId) {
+            const strId = String(qId || "");
+            if (!strId) return false;
+            if ((window.fbRevealedAnswers || []).includes(strId)) return true;
+            if (isCenterQuestion(strId) && (window.fbRevealedAnswers || []).some(x => isCenterQuestion(x))) {
+                return true;
+            }
+
+            const curQ = String(fbCauHoiHienTai || "");
+            if (curQ === strId && (fbShowAnswer || isTimeUpV2)) return true;
+            if (isCenterQuestion(strId) && isCenterQuestion(curQ) && (fbShowAnswer || isTimeUpV2)) return true;
+            return false;
+        }
+
         // ==========================================
         // 2. BIẾN TRẠNG THÁI ĐỒNG BỘ VỚI ADMIN
         // ==========================================
@@ -1042,6 +1056,7 @@
         let fbShowAnswer = false;
         let isTimeUpV2 = false;
         window.fbBlurredArr = [];
+        window.fbRevealedAnswers = [];
 
         let globalCauHoiV2 = {};
         let globalTrangThai = {};
@@ -1068,15 +1083,15 @@
         // 3. TỰ ĐỘNG PHÁT NHẠC CHÀO MỪNG & BRAVO
         // ==========================================
         function checkAndTriggerAnswerSound() {
-            const shouldShow = fbShowAnswer || isTimeUpV2;
-            if (!fbCauHoiHienTai || !shouldShow) {
+            const nonCenterRevealed = (window.fbRevealedAnswers || []).filter(id => !isCenterQuestion(id));
+            const curIsNonCenterShown = Boolean(fbCauHoiHienTai) && !isCenterQuestion(fbCauHoiHienTai) && (fbShowAnswer || isTimeUpV2);
+
+            if (nonCenterRevealed.length === 0 && !curIsNonCenterShown) {
                 lastAnswerSoundKey = "";
                 return;
             }
 
-            const curKey = `${fbCauHoiHienTai}_${endTimeTimestampV2 || ""}_${globalTrangThai.answerTrigger || ""}`;
-            if (isCenterQuestion(fbCauHoiHienTai)) return;
-
+            const curKey = `${nonCenterRevealed.join(",")}_${fbCauHoiHienTai || ""}_${endTimeTimestampV2 || ""}_${globalTrangThai.answerTrigger || ""}`;
             if (lastAnswerSoundKey !== curKey) {
                 lastAnswerSoundKey = curKey;
                 stopTimerSound();
@@ -1085,16 +1100,15 @@
         }
 
         function checkAndTriggerBravo() {
-            const isCenter = isCenterQuestion(fbCauHoiHienTai);
-            const shouldShow = fbShowAnswer || isTimeUpV2;
-            if (!isCenter || !shouldShow) {
+            const isCenterRevealed = isQuestionAnswerRevealed("5");
+            if (!isCenterRevealed) {
                 wasBravoTriggered = false;
                 isBravoFinished = false;
                 lastBravoKey = "";
                 return;
             }
 
-            const bravoKey = `${fbCauHoiHienTai}_${endTimeTimestampV2 || ""}_${globalTrangThai.answerTrigger || ""}`;
+            const bravoKey = `5_${endTimeTimestampV2 || ""}_${globalTrangThai.answerTrigger || ""}`;
             if (!wasBravoTriggered || lastBravoKey !== bravoKey) {
                 wasBravoTriggered = true;
                 isBravoFinished = false;
@@ -1114,8 +1128,13 @@
                 puzzleImg.style.backgroundImage = `url('${globalTrangThai.linkAnh}')`;
             }
 
-            // Chỉ phóng to nếu mảnh trung tâm đã được Admin mở; không tự ý lật mảnh ảnh
-            const isManh5Opened = (globalTrangThai.manh5 === true || globalTrangThai.manh5 === "true");
+            // Mở toàn bộ 4 mảnh ghép & hình trung tâm khi công bố đáp án Trung Tâm
+            ['1', '2', '3', '4'].forEach(p => {
+                const el = document.getElementById(`piece-${p}`);
+                if (el) el.className = `piece p${p} revealed`;
+            });
+            const p5El = document.getElementById('piece-5');
+            if (p5El) p5El.className = `piece-center revealed`;
 
             stopTimerSound();
             playSound('welcome', true);
@@ -1133,20 +1152,15 @@
                 if (Date.now() < end) requestAnimationFrame(frame);
             }());
 
-            if (isManh5Opened) {
-                if (zoomBanner) {
-                    zoomBanner.innerText = answerText ? `ĐÁP ÁN: ${answerText.toUpperCase()}` : "CHÚC MỪNG!";
-                }
-                puzzleWrapper.classList.add('zoomed');
-                setTimeout(() => {
-                    puzzleWrapper.classList.remove('zoomed');
-                    isBravoFinished = true;
-                    renderQBoard();
-                }, 4000);
-            } else {
+            if (zoomBanner) {
+                zoomBanner.innerText = answerText ? `ĐÁP ÁN: ${answerText.toUpperCase()}` : "CHÚC MỪNG!";
+            }
+            puzzleWrapper.classList.add('zoomed');
+            setTimeout(() => {
+                puzzleWrapper.classList.remove('zoomed');
                 isBravoFinished = true;
                 renderQBoard();
-            }
+            }, 4000);
         }
 
         // ==========================================
@@ -1215,7 +1229,7 @@
                     progressBar.style.width = percent + "%";
                 }
 
-                if (fbShowAnswer) {
+                if (isQuestionAnswerRevealed(curQ)) {
                     stopTimerSound();
                 } else if (!isSoundMuted) {
                     const timerKey = `${curQ}_${endTimeTimestampV2}`;
@@ -1369,6 +1383,14 @@
                 }
                 const blurredArr = window.fbBlurredArr;
 
+                // Danh sách các câu đã mở đáp án (hỗ trợ mở nhiều hàng ngang cùng lúc)
+                const rawRevealed = state.revealedAnswers !== undefined
+                    ? state.revealedAnswers
+                    : (globalMatchState.revealed_answers !== undefined ? globalMatchState.revealed_answers : "");
+                window.fbRevealedAnswers = rawRevealed
+                    ? rawRevealed.toString().split(',').map(x => x.trim()).filter(x => x !== "")
+                    : [];
+
                 if (!fbCauHoiHienTai) {
                     endTimeTimestampV2 = null;
                     timerPausedV2 = false;
@@ -1390,11 +1412,14 @@
                     }
                 }
 
+                // Nếu mở đáp án câu trung tâm (5) -> tự động mở toàn bộ 4 mảnh ghép & hình trung tâm
+                const isCenterAnsShown = isQuestionAnswerRevealed("5");
+
                 ['1', '2', '3', '4'].forEach(p => {
                     const el = document.getElementById(`piece-${p}`);
                     if (el) {
                         const isDead = blurredArr.includes(p);
-                        const isRev = (state['manh' + p] === true || state['manh' + p] === "true");
+                        const isRev = isCenterAnsShown || (state['manh' + p] === true || state['manh' + p] === "true");
                         const deadCls = (isDead && !isRev) ? 'piece-dead' : '';
                         el.className = `piece p${p} ${isRev ? 'revealed' : ''} ${deadCls}`.trim();
                     }
@@ -1402,7 +1427,7 @@
 
                 const p5El = document.getElementById('piece-5');
                 if (p5El) {
-                    const isRev5 = (state['manh5'] === true || state['manh5'] === "true");
+                    const isRev5 = isCenterAnsShown || (state['manh5'] === true || state['manh5'] === "true");
                     const isDead5 = blurredArr.includes('5') || blurredArr.includes('CNV') || blurredArr.includes('TRUNGTAM');
                     const deadCls5 = (isDead5 && !isRev5) ? 'piece-dead' : '';
                     p5El.className = `piece-center ${isRev5 ? 'revealed' : ''} ${deadCls5}`.trim();
@@ -1432,7 +1457,6 @@
             const wordsBoard = document.getElementById('words-board');
             let wordsHtml = "";
             const blurredArr = window.fbBlurredArr;
-            const shouldShowAns = fbShowAnswer || isTimeUpV2;
 
             for (let i = 1; i <= 4; i++) {
                 const qData = globalCauHoiV2[i];
@@ -1442,7 +1466,7 @@
                 const answerStr = qData.dapAn ? qData.dapAn.toString().normalize('NFC').toUpperCase().replace(/\s/g, '') : "";
                 const charsCount = Number(qData.soKyTu) || answerStr.length || 0;
                 const isRevealed = (globalTrangThai['manh' + id] === true || globalTrangThai['manh' + id] === "true")
-                    || (shouldShowAns && String(fbCauHoiHienTai) === id);
+                    || isQuestionAnswerRevealed(id);
 
                 let circlesHtml = "";
                 for (let c = 0; c < charsCount; c++) {
@@ -1461,7 +1485,8 @@
 
             const cnvCenterBoard = document.getElementById('cnv-center-board');
             const q5Data = globalCauHoiV2['5'];
-            const isCenterDone = isCenterQuestion(fbCauHoiHienTai) && shouldShowAns;
+            const isCenterDone = isQuestionAnswerRevealed('5')
+                || (globalTrangThai.manh5 === true || globalTrangThai.manh5 === "true");
 
             if (cnvCenterBoard) {
                 if (q5Data && (q5Data.soKyTu || q5Data.dapAn)) {
@@ -1487,7 +1512,7 @@
         function renderTeamsInstantly() {
             let gridHtml = "";
             const dapanCacDoi = (globalMatchState && globalMatchState.dapan_cacdoi) ? globalMatchState.dapan_cacdoi : {};
-            const isRoundEnded = fbShowAnswer || isTimeUpV2;
+            const isRoundEnded = fbCauHoiHienTai ? isQuestionAnswerRevealed(fbCauHoiHienTai) : false;
 
             const answeredList = window.activeTeams
                 .filter(col => Boolean((dapanCacDoi[col]?.dapan || "").trim()))
@@ -1597,7 +1622,7 @@
                     const isDead = blurredArr.includes(cur) || (isCenterQ && (blurredArr.includes("CNV") || blurredArr.includes("TRUNGTAM")));
                     const correctAns = qData.dapAn ? qData.dapAn.toString().normalize('NFC') : "";
                     const displayLen = Number(qData.soKyTu) || correctAns.replace(/\s/g, '').length || 0;
-                    const shouldShowAns = fbShowAnswer || isTimeUpV2;
+                    const shouldShowAns = isQuestionAnswerRevealed(cur);
 
                     if (isDead) {
                         const dapAnHtml = (shouldShowAns && correctAns !== "")
