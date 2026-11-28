@@ -362,7 +362,7 @@
             const t = A.teams[teamIdx]; if (!t) return;
             const name = t.tendoi;
             if (!manualScoring[name]) manualScoring[name] = {};
-            manualScoring[name][qIndex] = (manualScoring[name][qIndex] === val) ? null : val;
+            manualScoring[name][qIndex] = val;   // luôn set theo nút vừa bấm, không toggle về null
             localStorage.setItem('olympia_manual_scoring', JSON.stringify(manualScoring));
             renderDashboard();
         }
@@ -464,7 +464,6 @@
                         </div>
                     </div>
                     <div>
-                        <div class="q-actions"><button class="btn-show" onclick="setQuestion('${q.id}')">Phát Lại Câu ${esc(q.id)}</button></div>
                         <div class="q-scoring-row">
                             <button class="btn-mc-wrong ${tState[i] === false ? 'active' : ''}" onclick="toggleManualScore(${ti}, ${i}, false)">✘ Sai (0đ)</button>
                             <button class="btn-mc-correct ${tState[i] === true ? 'active' : ''}" onclick="toggleManualScore(${ti}, ${i}, true)">✔ Đúng (+10đ)</button>
