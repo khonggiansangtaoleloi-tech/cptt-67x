@@ -485,7 +485,6 @@
         let isAdminSoundMuted = false;
         let lastPlayedTimerKey = "";
         let lastAnswerSoundKey = "";
-        let lastAutoRevealedKey = "";
 
         function toggleAdminSound() {
             isAdminSoundMuted = !isAdminSoundMuted;
@@ -697,58 +696,12 @@
         }
 
         // ==========================================
-        // TỰ ĐỘNG HIỆN ĐÁP ÁN KHI HẾT GIỜ (KHÔNG MỞ Ô HÌNH ẢNH)
-        // ==========================================
-        async function autoShowAnswerOnTimeUp(id) {
-            const strId = String(id);
-            try {
-                const triggerTs = Date.now();
-                if (!serverRevealedAnswers.includes(strId)) {
-                    serverRevealedAnswers.push(strId);
-                }
-                const revealedStr = serverRevealedAnswers.join(',');
-
-                globalTrangThai.showAnswer = true;
-                globalTrangThai.answerTrigger = triggerTs;
-                globalTrangThai.revealedAnswers = revealedStr;
-
-                syncShowAnswerTopButtonUI();
-                renderAdminUI();
-
-                await Promise.all([
-                    fbPatchState({
-                        showAnswer: true,
-                        answerTrigger: triggerTs,
-                        revealedAnswers: revealedStr
-                    }),
-                    fbPatchMatchState({
-                        revealed_answers: revealedStr,
-                        config: { show_dapan: true }
-                    })
-                ]);
-
-                checkAndTriggerAnswerSound();
-            } catch (e) {
-                console.error("Lỗi tự động hiện đáp án khi hết giờ:", e);
-            }
-        }
-
-        // ==========================================
         // ĐỒNG HỒ & ÂM THANH (100ms)
         // ==========================================
         function updateAdminTimerUI() {
             const curQ = String(globalTrangThai.cauHoiHienTai || "");
             const remMs = getRemainingMs();
             const qKeys = Object.keys(globalCauHoiV2);
-
-            // Tự động hiện đáp án khi hết giờ (không mở mảnh ghép)
-            if (curQ && !adminTimerPaused && adminTimerEnd && remMs <= 0 && !isCurrentAnswerRevealed()) {
-                const autoKey = `${curQ}_${adminTimerEnd}`;
-                if (lastAutoRevealedKey !== autoKey) {
-                    lastAutoRevealedKey = autoKey;
-                    autoShowAnswerOnTimeUp(curQ);
-                }
-            }
 
             if (!curQ || remMs <= 0 || isCurrentAnswerRevealed()) {
                 stopTimerSound();
@@ -1365,7 +1318,6 @@
                     globalTrangThai.manh5 = true;
                     serverBlurredPieces = [];
                     lastPlayedTimerKey = "";
-                    lastAutoRevealedKey = "";
                     stopTimerSound();
                 } else if (willShow && !nextCurQ) {
                     globalTrangThai.hienKyTuCauHoi = strId;
@@ -1439,7 +1391,6 @@
                 globalTrangThai.showAnswer = false;
                 lastPlayedTimerKey = "";
                 lastAnswerSoundKey = "";
-                lastAutoRevealedKey = "";
                 stopAllSounds();
 
                 await fbPatchState({
@@ -1484,7 +1435,6 @@
                 globalTrangThai.showAnswer = false;
                 globalTrangThai.revealedAnswers = revealedStr;
                 lastAnswerSoundKey = "";
-                lastAutoRevealedKey = "";
 
                 // Làm mới dữ liệu đáp án ngay tại local
                 globalMatchState.dapan_cacdoi = emptyAnswers;
@@ -1589,7 +1539,6 @@
                     globalTrangThai.revealedAnswers = "";
                     lastPlayedTimerKey = "";
                     lastAnswerSoundKey = "";
-                    lastAutoRevealedKey = "";
                     stopAllSounds();
 
                     await fbPatchState({
