@@ -1034,7 +1034,7 @@
             return (s === "5" || s === "cnv" || s === "trungtam");
         }
 
-        // Chỉ hiện đáp án khi Admin bật thủ công (showAnswer hoặc revealedAnswers)
+        // Chỉ hiện đáp án chuẩn khi Admin bật thủ công (showAnswer hoặc revealedAnswers)
         function isQuestionAnswerRevealed(qId) {
             const strId = String(qId || "");
             if (!strId) return false;
@@ -1208,7 +1208,7 @@
 
                 stopTimerSound();
 
-                // Hết giờ chỉ dừng đồng hồ, KHÔNG tự động hiện đáp án
+                // Hết giờ chỉ dừng đồng hồ và mở đáp án của thí sinh, KHÔNG mở đáp án chuẩn
                 if (!isTimeUpV2) {
                     isTimeUpV2 = true;
                     processAudienceData();
@@ -1536,7 +1536,7 @@
             let gridHtml = "";
             const dapanCacDoi = (globalMatchState && globalMatchState.dapan_cacdoi) ? globalMatchState.dapan_cacdoi : {};
             const curQ = String(fbCauHoiHienTai || "");
-            const isRoundEnded = curQ ? isQuestionAnswerRevealed(curQ) : false;
+            const isRoundEnded = curQ ? (isTimeUpV2 || isQuestionAnswerRevealed(curQ)) : false;
 
             const teamEntries = {};
             window.activeTeams.forEach(col => {
