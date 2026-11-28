@@ -502,92 +502,93 @@
             flex-shrink: 0;
         }
 
- /* =========================================
+        /* =========================================
 7. BẢNG TỪ KHÓA HÀNG NGANG - KHÁN GIẢ (TO RÕ, TRÒN ĐỀU)
-   ========================================= */
-.words-board {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: clamp(8px, 0.9vw, 14px);
-    padding: 6px 4px;
-    width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
+           ========================================= */
+        .words-board {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: clamp(8px, 0.9vw, 14px);
+            padding: 6px 4px;
+            width: 100%;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
 
-.word-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    width: 100%;
-    gap: clamp(4px, 0.45vw, 7px);
-    flex-shrink: 0;
-    box-sizing: border-box;
-    transition: opacity 0.3s ease;
-}
+        .word-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 100%;
+            gap: clamp(4px, 0.45vw, 7px);
+            flex-shrink: 0;
+            box-sizing: border-box;
+            transition: opacity 0.3s ease;
+        }
 
-.word-row.dead {
-    opacity: 0.3;
-    filter: grayscale(100%);
-}
+        .word-row.dead {
+            opacity: 0.3;
+            filter: grayscale(100%);
+        }
 
-.row-label {
-    background: linear-gradient(135deg, #08729f, #032f4d);
-    border: 2px solid var(--cyan);
-    color: var(--gold);
-    width: clamp(34px, 3.8vw, 58px) !important;
-    min-width: clamp(34px, 3.8vw, 58px) !important;
-    max-width: clamp(34px, 3.8vw, 58px) !important;
-    height: clamp(34px, 3.8vw, 58px) !important;
-    min-height: clamp(34px, 3.8vw, 58px) !important;
-    max-height: clamp(34px, 3.8vw, 58px) !important;
-    padding: 0 !important;
-    box-sizing: border-box;
-    border-radius: 12px;
-    font-weight: 900;
-    font-size: clamp(1.1rem, 1.45vw, 1.75rem) !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 4px;
-    flex-shrink: 0;
-}
+        .row-label {
+            background: linear-gradient(135deg, #08729f, #032f4d);
+            border: 2px solid var(--cyan);
+            color: var(--gold);
+            width: clamp(34px, 3.8vw, 58px) !important;
+            min-width: clamp(34px, 3.8vw, 58px) !important;
+            max-width: clamp(34px, 3.8vw, 58px) !important;
+            height: clamp(34px, 3.8vw, 58px) !important;
+            min-height: clamp(34px, 3.8vw, 58px) !important;
+            max-height: clamp(34px, 3.8vw, 58px) !important;
+            padding: 0 !important;
+            box-sizing: border-box;
+            border-radius: 12px;
+            font-weight: 900;
+            font-size: clamp(1.1rem, 1.45vw, 1.75rem) !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 4px;
+            flex-shrink: 0;
+        }
 
-.circle {
-    flex: 0 0 clamp(34px, 3.8vw, 58px) !important;
-    width: clamp(34px, 3.8vw, 58px) !important;
-    min-width: clamp(34px, 3.8vw, 58px) !important;
-    max-width: clamp(34px, 3.8vw, 58px) !important;
-    height: clamp(34px, 3.8vw, 58px) !important;
-    min-height: clamp(34px, 3.8vw, 58px) !important;
-    max-height: clamp(34px, 3.8vw, 58px) !important;
-    aspect-ratio: 1 / 1 !important;
-    padding: 0 !important;
-    box-sizing: border-box;
-    border-radius: 50% !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
-    font-size: clamp(1.15rem, 1.55vw, 1.85rem) !important;
-    line-height: 1 !important;
-    text-transform: uppercase;
-    box-shadow: inset -3px -3px 6px rgba(0, 0, 0, 0.35), 0 0 12px rgba(117, 223, 255, 0.3);
-}
+        .circle {
+            flex: 0 0 clamp(34px, 3.8vw, 58px) !important;
+            width: clamp(34px, 3.8vw, 58px) !important;
+            min-width: clamp(34px, 3.8vw, 58px) !important;
+            max-width: clamp(34px, 3.8vw, 58px) !important;
+            height: clamp(34px, 3.8vw, 58px) !important;
+            min-height: clamp(34px, 3.8vw, 58px) !important;
+            max-height: clamp(34px, 3.8vw, 58px) !important;
+            aspect-ratio: 1 / 1 !important;
+            padding: 0 !important;
+            box-sizing: border-box;
+            border-radius: 50% !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 900;
+            font-size: clamp(1.15rem, 1.55vw, 1.85rem) !important;
+            line-height: 1 !important;
+            text-transform: uppercase;
+            box-shadow: inset -3px -3px 6px rgba(0, 0, 0, 0.35), 0 0 12px rgba(117, 223, 255, 0.3);
+        }
 
-.circle.blue {
-    background: radial-gradient(circle at 30% 30%, #8be9ff, #0879aa);
-    color: #001b2c;
-}
+        .circle.blue {
+            background: radial-gradient(circle at 30% 30%, #8be9ff, #0879aa);
+            color: #001b2c;
+        }
 
-.circle.empty-revealed {
-    background: radial-gradient(circle at 30% 30%, #ffffff, #b9eafa);
-    color: #03243b;
-    box-shadow: 0 0 16px rgba(117, 223, 255, 0.7);
-}
-/* =========================================
+        .circle.empty-revealed {
+            background: radial-gradient(circle at 30% 30%, #ffffff, #b9eafa);
+            color: #03243b;
+            box-shadow: 0 0 16px rgba(117, 223, 255, 0.7);
+        }
+
+        /* =========================================
 8. BẢNG CHƯỚNG NGẠI VẬT
            ========================================= */
         .cnv-center-board {
@@ -1033,6 +1034,7 @@
             return (s === "5" || s === "cnv" || s === "trungtam");
         }
 
+        // Chỉ hiện đáp án khi Admin bật thủ công (showAnswer hoặc revealedAnswers)
         function isQuestionAnswerRevealed(qId) {
             const strId = String(qId || "");
             if (!strId) return false;
@@ -1042,8 +1044,8 @@
             }
 
             const curQ = String(fbCauHoiHienTai || "");
-            if (curQ === strId && (fbShowAnswer || isTimeUpV2)) return true;
-            if (isCenterQuestion(strId) && isCenterQuestion(curQ) && (fbShowAnswer || isTimeUpV2)) return true;
+            if (curQ === strId && fbShowAnswer) return true;
+            if (isCenterQuestion(strId) && isCenterQuestion(curQ) && fbShowAnswer) return true;
             return false;
         }
 
@@ -1061,6 +1063,7 @@
         let globalCauHoiV2 = {};
         let globalTrangThai = {};
         let globalMatchState = {};
+        let globalSubmittedAnswers = {};
 
         let endTimeTimestampV2 = null;
         let timerPausedV2 = false;
@@ -1080,18 +1083,18 @@
         window.activeTeams = [];
 
         // ==========================================
-        // 3. TỰ ĐỘNG PHÁT NHẠC CHÀO MỪNG & BRAVO
+        // 3. TỰ ĐỘNG PHÁT NHẠC CHÀO MỪNG & BRAVO KHI ADMIN MỞ ĐÁP ÁN
         // ==========================================
         function checkAndTriggerAnswerSound() {
             const nonCenterRevealed = (window.fbRevealedAnswers || []).filter(id => !isCenterQuestion(id));
-            const curIsNonCenterShown = Boolean(fbCauHoiHienTai) && !isCenterQuestion(fbCauHoiHienTai) && (fbShowAnswer || isTimeUpV2);
+            const curIsNonCenterShown = Boolean(fbCauHoiHienTai) && !isCenterQuestion(fbCauHoiHienTai) && fbShowAnswer;
 
             if (nonCenterRevealed.length === 0 && !curIsNonCenterShown) {
                 lastAnswerSoundKey = "";
                 return;
             }
 
-            const curKey = `${nonCenterRevealed.join(",")}_${fbCauHoiHienTai || ""}_${endTimeTimestampV2 || ""}_${globalTrangThai.answerTrigger || ""}`;
+            const curKey = `${nonCenterRevealed.join(",")}_${fbCauHoiHienTai || ""}_${globalTrangThai.answerTrigger || ""}`;
             if (lastAnswerSoundKey !== curKey) {
                 lastAnswerSoundKey = curKey;
                 stopTimerSound();
@@ -1108,7 +1111,7 @@
                 return;
             }
 
-            const bravoKey = `5_${endTimeTimestampV2 || ""}_${globalTrangThai.answerTrigger || ""}`;
+            const bravoKey = `5_${globalTrangThai.answerTrigger || ""}`;
             if (!wasBravoTriggered || lastBravoKey !== bravoKey) {
                 wasBravoTriggered = true;
                 isBravoFinished = false;
@@ -1205,11 +1208,10 @@
 
                 stopTimerSound();
 
+                // Hết giờ chỉ dừng đồng hồ, KHÔNG tự động hiện đáp án
                 if (!isTimeUpV2) {
                     isTimeUpV2 = true;
                     processAudienceData();
-                    checkAndTriggerAnswerSound();
-                    checkAndTriggerBravo();
                 }
             } else if (timerPausedV2) {
                 timerEl.innerText = `⏸ ${(dist / 1000).toFixed(1)}`;
@@ -1365,6 +1367,7 @@
                 }
 
                 globalCauHoiV2 = dsch;
+                globalSubmittedAnswers = fbToObj(db.submittedAnswers);
                 const state = db.trangThai || {};
                 globalTrangThai = state;
                 globalMatchState = db.match_state || {};
@@ -1383,7 +1386,7 @@
                 }
                 const blurredArr = window.fbBlurredArr;
 
-                // Danh sách các câu đã mở đáp án (hỗ trợ mở nhiều hàng ngang cùng lúc)
+                // Danh sách các câu đã mở đáp án thủ công từ Admin
                 const rawRevealed = state.revealedAnswers !== undefined
                     ? state.revealedAnswers
                     : (globalMatchState.revealed_answers !== undefined ? globalMatchState.revealed_answers : "");
@@ -1398,21 +1401,22 @@
                     lastQuestionIdV2 = null;
                     isTimeUpV2 = false;
                 } else {
-                    if (fbCauHoiHienTai !== lastQuestionIdV2) {
+                    const nextEndTime = Number(state.timerEndTime) || 0;
+                    if (fbCauHoiHienTai !== lastQuestionIdV2 || (nextEndTime && nextEndTime !== endTimeTimestampV2)) {
                         lastQuestionIdV2 = fbCauHoiHienTai;
                         isTimeUpV2 = false;
                     }
                     timerPausedV2 = (state.timerPaused === true || state.timerPaused === "true");
                     if (timerPausedV2) {
                         timerRemainingV2 = Number(state.timerRemaining) || 0;
-                    } else if (state.timerEndTime) {
-                        endTimeTimestampV2 = Number(state.timerEndTime);
+                    } else if (nextEndTime) {
+                        endTimeTimestampV2 = nextEndTime;
                     } else if (!endTimeTimestampV2) {
                         endTimeTimestampV2 = getServerNow() + 30000;
                     }
                 }
 
-                // Nếu mở đáp án câu trung tâm (5) -> tự động mở toàn bộ 4 mảnh ghép & hình trung tâm
+                // Nếu Admin mở đáp án câu trung tâm (5) -> tự động mở toàn bộ 4 mảnh ghép & hình trung tâm
                 const isCenterAnsShown = isQuestionAnswerRevealed("5");
 
                 ['1', '2', '3', '4'].forEach(p => {
@@ -1445,10 +1449,8 @@
         // 7. XỬ LÝ HIỂN THỊ DỮ LIỆU KHÁN GIẢ
         // ==========================================
         function processAudienceData() {
-            if (!globalTrangThai || Object.keys(globalTrangThai).length === 0) return;
-
             const puzzleImg = document.getElementById('puzzle-img');
-            if (globalTrangThai.linkAnh) {
+            if (globalTrangThai && globalTrangThai.linkAnh) {
                 puzzleImg.style.backgroundImage = `url('${globalTrangThai.linkAnh}')`;
             }
 
@@ -1509,16 +1511,43 @@
         // ==========================================
         // 8. RENDER BẢNG ĐIỂM & ĐÁP ÁN CÁC ĐỘI
         // ==========================================
+        function getTeamSubmittedEntry(teamCol, teamName, curQ, dapanCacDoi) {
+            const direct = dapanCacDoi[teamCol];
+            if (direct && (direct.dapan || "").trim()) {
+                return {
+                    dapan: String(direct.dapan).trim(),
+                    thoigian_nop: Number(direct.thoigian_nop) || 0
+                };
+            }
+            if (curQ && globalSubmittedAnswers[curQ]) {
+                const subMap = fbToObj(globalSubmittedAnswers[curQ]);
+                const sub = subMap[teamName] || subMap[teamCol];
+                if (sub && (sub.answer || sub.dapan)) {
+                    return {
+                        dapan: String(sub.answer || sub.dapan).trim(),
+                        thoigian_nop: parseFloat(String(sub.time || sub.thoigian_nop || 0).replace(/[^\d.]/g, "")) || 0
+                    };
+                }
+            }
+            return { dapan: "", thoigian_nop: 0 };
+        }
+
         function renderTeamsInstantly() {
             let gridHtml = "";
             const dapanCacDoi = (globalMatchState && globalMatchState.dapan_cacdoi) ? globalMatchState.dapan_cacdoi : {};
-            const isRoundEnded = fbCauHoiHienTai ? isQuestionAnswerRevealed(fbCauHoiHienTai) : false;
+            const curQ = String(fbCauHoiHienTai || "");
+            const isRoundEnded = curQ ? isQuestionAnswerRevealed(curQ) : false;
+
+            const teamEntries = {};
+            window.activeTeams.forEach(col => {
+                teamEntries[col] = getTeamSubmittedEntry(col, window.teamNamesMapping[col], curQ, dapanCacDoi);
+            });
 
             const answeredList = window.activeTeams
-                .filter(col => Boolean((dapanCacDoi[col]?.dapan || "").trim()))
+                .filter(col => Boolean(teamEntries[col]?.dapan))
                 .sort((a, b) => {
-                    const tA = Number(dapanCacDoi[a]?.thoigian_nop) || Infinity;
-                    const tB = Number(dapanCacDoi[b]?.thoigian_nop) || Infinity;
+                    const tA = teamEntries[a]?.thoigian_nop || Infinity;
+                    const tB = teamEntries[b]?.thoigian_nop || Infinity;
                     return tA - tB;
                 });
 
@@ -1535,15 +1564,15 @@
                         ? 'score-up'
                         : (scoreFlashState[teamCol] === 'down' ? 'score-down' : '');
 
-                    const teamAnsObj = dapanCacDoi[teamCol] || {};
-                    const ansText = (teamAnsObj.dapan || "").trim();
-                    const timeNop = Number(teamAnsObj.thoigian_nop) || 0;
+                    const teamAnsObj = teamEntries[teamCol] || { dapan: "", thoigian_nop: 0 };
+                    const ansText = teamAnsObj.dapan;
+                    const timeNop = teamAnsObj.thoigian_nop;
                     const timeHtml = timeNop > 0 ? `<div class="team-ans-time">⏱ ${timeNop.toFixed(2)}s</div>` : "";
 
                     let ansBoxCls = "";
                     let ansContentHtml = "";
 
-                    if (!fbCauHoiHienTai) {
+                    if (!curQ) {
                         ansContentHtml = `<div class="team-ans-empty">Đang chờ câu hỏi...</div>`;
                     } else if (ansText) {
                         ansBoxCls = "has-answer";
@@ -1556,7 +1585,7 @@
                             ansContentHtml = `<div class="team-ans-locked">#${rank} • ✓ ĐÃ TRẢ LỜI</div>${timeHtml}`;
                         }
                     } else {
-                        ansContentHtml = `<div class="team-ans-empty">${isRoundEnded ? "Chưa trả lời" : "Đang suy nghĩ..."}</div>`;
+                        ansContentHtml = `<div class="team-ans-empty">${isRoundEnded ? "Chưa trả lời" : (curQ === "5" ? "🎙 Trả lời trực tiếp" : "Đang suy nghĩ...")}</div>`;
                     }
 
                     gridHtml += `
@@ -1637,7 +1666,7 @@
                         } else {
                             newHtml = `
                                 <div class="q-subject">[ GỢI Ý CÂU TRUNG TÂM - ${displayLen} KÝ TỰ ]</div>
-                                <div class="q-direct-badge">💻 TRẢ LỜI TRÊN MÁY TÍNH</div>
+                                <div class="q-direct-badge">🎙 TRẢ LỜI TRỰC TIẾP</div>
                                 <div class="q-text">${qData.noiDung}</div>`;
                         }
                     } else {
