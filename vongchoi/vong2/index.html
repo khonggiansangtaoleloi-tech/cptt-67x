@@ -456,91 +456,92 @@
             flex-shrink: 0;
         }
 
-/* =========================================
+        /* =========================================
 7. BẢNG TỪ KHÓA HÀNG NGANG - KHÁN GIẢ (TO RÕ, TRÒN ĐỀU)
-   ========================================= */
-.words-board {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: clamp(8px, 0.9vw, 14px);
-    padding: 6px 4px;
-    width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
+           ========================================= */
+        .words-board {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: clamp(8px, 0.9vw, 14px);
+            padding: 6px 4px;
+            width: 100%;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
 
-.word-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    width: 100%;
-    gap: clamp(4px, 0.45vw, 7px);
-    flex-shrink: 0;
-    box-sizing: border-box;
-    transition: opacity 0.3s ease;
-}
+        .word-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            width: 100%;
+            gap: clamp(4px, 0.45vw, 7px);
+            flex-shrink: 0;
+            box-sizing: border-box;
+            transition: opacity 0.3s ease;
+        }
 
-.word-row.dead {
-    opacity: 0.3;
-    filter: grayscale(100%);
-}
+        .word-row.dead {
+            opacity: 0.3;
+            filter: grayscale(100%);
+        }
 
-.row-label {
-    background: linear-gradient(135deg, #08729f, #032f4d);
-    border: 2px solid var(--cyan);
-    color: var(--gold);
-    width: clamp(34px, 4vw, 58px) !important;
-    min-width: clamp(34px, 4vw, 58px) !important;
-    max-width: clamp(34px, 4vw, 58px) !important;
-    height: clamp(34px, 4vw, 58px) !important;
-    min-height: clamp(34px, 4vw, 58px) !important;
-    max-height: clamp(34px, 4vw, 58px) !important;
-    padding: 0 !important;
-    box-sizing: border-box;
-    border-radius: 12px;
-    font-weight: 900;
-    font-size: clamp(1.1rem, 1.45vw, 1.75rem) !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 4px;
-    flex-shrink: 0;
-}
+        .row-label {
+            background: linear-gradient(135deg, #08729f, #032f4d);
+            border: 2px solid var(--cyan);
+            color: var(--gold);
+            width: clamp(34px, 4vw, 58px) !important;
+            min-width: clamp(34px, 4vw, 58px) !important;
+            max-width: clamp(34px, 4vw, 58px) !important;
+            height: clamp(34px, 4vw, 58px) !important;
+            min-height: clamp(34px, 4vw, 58px) !important;
+            max-height: clamp(34px, 4vw, 58px) !important;
+            padding: 0 !important;
+            box-sizing: border-box;
+            border-radius: 12px;
+            font-weight: 900;
+            font-size: clamp(1.1rem, 1.45vw, 1.75rem) !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 4px;
+            flex-shrink: 0;
+        }
 
-.circle {
-    flex: 0 0 clamp(34px, 4vw, 58px) !important;
-    width: clamp(34px, 4vw, 58px) !important;
-    min-width: clamp(34px, 4vw, 58px) !important;
-    max-width: clamp(34px, 4vw, 58px) !important;
-    height: clamp(34px, 4vw, 58px) !important;
-    min-height: clamp(34px, 4vw, 58px) !important;
-    max-height: clamp(34px, 4vw, 58px) !important;
-    aspect-ratio: 1 / 1 !important;
-    padding: 0 !important;
-    box-sizing: border-box;
-    border-radius: 50% !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 900;
-    font-size: clamp(1.15rem, 1.55vw, 1.85rem) !important;
-    line-height: 1 !important;
-    text-transform: uppercase;
-    box-shadow: inset -3px -3px 6px rgba(0, 0, 0, 0.35), 0 0 12px rgba(117, 223, 255, 0.3);
-}
+        .circle {
+            flex: 0 0 clamp(34px, 4vw, 58px) !important;
+            width: clamp(34px, 4vw, 58px) !important;
+            min-width: clamp(34px, 4vw, 58px) !important;
+            max-width: clamp(34px, 4vw, 58px) !important;
+            height: clamp(34px, 4vw, 58px) !important;
+            min-height: clamp(34px, 4vw, 58px) !important;
+            max-height: clamp(34px, 4vw, 58px) !important;
+            aspect-ratio: 1 / 1 !important;
+            padding: 0 !important;
+            box-sizing: border-box;
+            border-radius: 50% !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 900;
+            font-size: clamp(1.15rem, 1.55vw, 1.85rem) !important;
+            line-height: 1 !important;
+            text-transform: uppercase;
+            box-shadow: inset -3px -3px 6px rgba(0, 0, 0, 0.35), 0 0 12px rgba(117, 223, 255, 0.3);
+        }
 
-.circle.blue {
-    background: radial-gradient(circle at 30% 30%, #8be9ff, #0879aa);
-    color: #001b2c;
-}
+        .circle.blue {
+            background: radial-gradient(circle at 30% 30%, #8be9ff, #0879aa);
+            color: #001b2c;
+        }
 
-.circle.empty-revealed {
-    background: radial-gradient(circle at 30% 30%, #ffffff, #b9eafa);
-    color: #03243b;
-    box-shadow: 0 0 16px rgba(117, 223, 255, 0.7);
-}
+        .circle.empty-revealed {
+            background: radial-gradient(circle at 30% 30%, #ffffff, #b9eafa);
+            color: #03243b;
+            box-shadow: 0 0 16px rgba(117, 223, 255, 0.7);
+        }
+
         /* =========================================
 8. BẢNG CHƯỚNG NGẠI VẬT (RỘNG & CAO HƠN)
            ========================================= */
@@ -1016,6 +1017,7 @@
         let globalCauHoiV2 = {};
         let globalTrangThai = {};
         let globalMatchState = {};
+        let globalSubmittedAnswers = {};
 
         let fbHienKyTuCauHoi = "";
         let fbShowCharsOnly = false;
@@ -1061,6 +1063,7 @@
             return (s === "5" || s === "cnv" || s === "trungtam");
         }
 
+        // Chỉ hiện đáp án khi Admin bật thủ công (showAnswer hoặc revealedAnswers)
         function isQuestionAnswerRevealed(qId) {
             const strId = String(qId || "");
             if (!strId) return false;
@@ -1073,8 +1076,8 @@
             const globalShow = (globalTrangThai.showAnswer === true || globalTrangThai.showAnswer === "true")
                 || Boolean(globalMatchState.config && globalMatchState.config.show_dapan === true);
 
-            if (curQ === strId && (globalShow || isTimeUpV2)) return true;
-            if (isCenterQuestion(strId) && isCenterQuestion(curQ) && (globalShow || isTimeUpV2)) return true;
+            if (curQ === strId && globalShow) return true;
+            if (isCenterQuestion(strId) && isCenterQuestion(curQ) && globalShow) return true;
             return false;
         }
 
@@ -1172,10 +1175,31 @@
             return Math.max(0, endTimeTimestampV2 - getServerNow());
         }
 
+        function getMySubmittedEntry() {
+            const curQ = String(globalTrangThai.cauHoiHienTai || "");
+            const dapanCacDoi = (globalMatchState && globalMatchState.dapan_cacdoi) ? globalMatchState.dapan_cacdoi : {};
+            const direct = myTeamCol ? dapanCacDoi[myTeamCol] : null;
+            if (direct && (direct.dapan || "").trim()) {
+                return {
+                    dapan: String(direct.dapan).trim(),
+                    thoigian_nop: Number(direct.thoigian_nop) || 0
+                };
+            }
+            if (curQ && globalSubmittedAnswers[curQ]) {
+                const subMap = fbToObj(globalSubmittedAnswers[curQ]);
+                const sub = subMap[myTeamName] || subMap[myTeamCol];
+                if (sub && (sub.answer || sub.dapan)) {
+                    return {
+                        dapan: String(sub.answer || sub.dapan).trim(),
+                        thoigian_nop: parseFloat(String(sub.time || sub.thoigian_nop || 0).replace(/[^\d.]/g, "")) || 0
+                    };
+                }
+            }
+            return { dapan: "", thoigian_nop: 0 };
+        }
+
         function hasSubmittedCurrentQuestion() {
-            if (!myTeamCol || !globalMatchState || !globalMatchState.dapan_cacdoi) return false;
-            const myAnsObj = globalMatchState.dapan_cacdoi[myTeamCol] || {};
-            return Boolean((myAnsObj.dapan || "").trim());
+            return Boolean(getMySubmittedEntry().dapan);
         }
 
         // ==========================================
@@ -1213,6 +1237,7 @@
                     progressBar.style.width = "0%";
                     progressBar.className = "header-progress-bar";
                 }
+                // Hết giờ chỉ khóa ô nhập đáp án, KHÔNG tự động mở đáp án chuẩn
                 if (!isTimeUpV2) {
                     isTimeUpV2 = true;
                     updateAnswerInputState();
@@ -1322,6 +1347,7 @@
                 }
 
                 globalCauHoiV2 = dsch;
+                globalSubmittedAnswers = fbToObj(db.submittedAnswers);
                 const state = db.trangThai || {};
                 globalTrangThai = state;
                 globalMatchState = db.match_state || {};
@@ -1339,7 +1365,7 @@
                     blurredArr = window.fbBlurredArr || [];
                 }
 
-                // Danh sách các câu đã mở đáp án (hỗ trợ mở nhiều hàng ngang cùng lúc)
+                // Danh sách các câu đã mở đáp án thủ công từ Admin
                 const rawRevealed = state.revealedAnswers !== undefined
                     ? state.revealedAnswers
                     : (globalMatchState.revealed_answers !== undefined ? globalMatchState.revealed_answers : "");
@@ -1347,7 +1373,7 @@
                     ? rawRevealed.toString().split(',').map(x => x.trim()).filter(x => x !== "")
                     : [];
 
-                // Nếu đáp án câu trung tâm (5) đã mở -> tự động mở toàn bộ hình ảnh trung tâm
+                // Nếu Admin mở đáp án câu trung tâm (5) -> tự động mở toàn bộ hình ảnh trung tâm
                 const isCenterAnsShown = isQuestionAnswerRevealed("5");
 
                 ['1', '2', '3', '4'].forEach(num => {
@@ -1371,7 +1397,8 @@
                 }
 
                 const currentQ = state.cauHoiHienTai || "";
-                const sessionKey = `${currentQ}_${state.timerEndTime || 0}`;
+                const nextEndTime = Number(state.timerEndTime) || 0;
+                const sessionKey = `${currentQ}_${nextEndTime}`;
 
                 if (!currentQ) {
                     endTimeTimestampV2 = null;
@@ -1384,7 +1411,7 @@
                     lastSessionKeyV2 = "";
                     isTimeUpV2 = false;
                 } else {
-                    if (currentQ !== lastQuestionIdV2 || sessionKey !== lastSessionKeyV2) {
+                    if (currentQ !== lastQuestionIdV2 || (nextEndTime && sessionKey !== lastSessionKeyV2)) {
                         lastQuestionIdV2 = currentQ;
                         lastSessionKeyV2 = sessionKey;
                         isTimeUpV2 = false;
@@ -1394,8 +1421,8 @@
                     if (timerPausedV2) {
                         timerRemainingV2 = Number(state.timerRemaining) || 0;
                         if (timerRemainingV2 > 0) isTimeUpV2 = false;
-                    } else if (state.timerEndTime) {
-                        endTimeTimestampV2 = Number(state.timerEndTime);
+                    } else if (nextEndTime) {
+                        endTimeTimestampV2 = nextEndTime;
                         if (endTimeTimestampV2 > getServerNow()) isTimeUpV2 = false;
                     }
                 }
@@ -1433,7 +1460,8 @@
             const curQ = String(globalTrangThai.cauHoiHienTai || "");
             const isCenterQ = isCenterQuestion(curQ);
             const showAns = curQ ? isQuestionAnswerRevealed(curQ) : false;
-            const hasSubmitted = hasSubmittedCurrentQuestion();
+            const myEntry = getMySubmittedEntry();
+            const hasSubmitted = Boolean(myEntry.dapan);
 
             const canAnswer = Boolean(curQ) && !isCenterQ && !isTimeUpV2 && !timerPausedV2 && !showAns && !hasSubmitted;
 
@@ -1458,7 +1486,7 @@
                 fb.innerText = "Đã công bố đáp án.";
                 fb.className = "submit-feedback";
             } else if (hasSubmitted) {
-                const myTime = Number(globalMatchState.dapan_cacdoi[myTeamCol]?.thoigian_nop) || 0;
+                const myTime = myEntry.thoigian_nop;
                 fb.innerText = myTime > 0
                     ? `✓ Đã gửi đáp án lúc ${myTime.toFixed(2)}s (không thể sửa)`
                     : "✓ Đã gửi đáp án (không thể sửa)";
@@ -1488,10 +1516,9 @@
             if (nameEl) nameEl.innerText = myTeamName || "ĐỘI THI";
             if (scoreEl) scoreEl.innerText = myFirebaseScore !== null ? myFirebaseScore : 0;
 
-            const dapanCacDoi = (globalMatchState && globalMatchState.dapan_cacdoi) ? globalMatchState.dapan_cacdoi : {};
-            const myAnsObj = myTeamCol ? (dapanCacDoi[myTeamCol] || {}) : {};
-            const myAns = (myAnsObj.dapan || "").trim();
-            const myTime = Number(myAnsObj.thoigian_nop) || 0;
+            const myEntry = getMySubmittedEntry();
+            const myAns = myEntry.dapan;
+            const myTime = myEntry.thoigian_nop;
 
             if (savedBox && savedAnsEl && savedTimeEl) {
                 if (myAns) {
